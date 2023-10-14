@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Lottie from 'react-lottie-player';
+import { useRouter } from "next/navigation";
+import Lottie from "react-lottie-player";
 
-import happyStudents from '../../public/happy-students.json';
+import happyStudents from "../../public/happy-students.json";
 
 import Chat from '@/components/chat';
 import NavBar from '@/components/nav-bar';
