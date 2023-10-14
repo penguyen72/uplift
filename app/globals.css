@@ -70,6 +70,30 @@
   * {
     @apply border-border;
   }
+  @font-face {
+    font-family: 'andika';
+    src: url('/fonts/Andika-Regular.woff') format('woff');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal
+
+  }
+  @font-face {
+    font-family: 'delius';
+    src: url('/fonts/Delius-Regular.woff') format('woff');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal
+
+  }
+  @font-face {
+    font-family: 'jua';
+    src: url('/fonts/Jua-Regular.woff') format('woff');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal
+
+  }
   body {
     @apply bg-background text-foreground;
   }
