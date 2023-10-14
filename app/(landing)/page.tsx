@@ -49,15 +49,18 @@ export default function Home() {
               <h1 className="font-jua text-6xl xl:text-8xl drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-[#DE9BC3] whitespace-nowrap transition-all">
                 ABOUT US
               </h1>
-              <p className="font-andika text-base lg:text-[25px] whitespace-normal transition-all">
+              <p className="font-andika text-base lg:text-xl whitespace-normal transition-all">
                 'Take What You Need' offers a diverse collection of
                 inspirational quotes, heartwarming jokes, and practical tips
                 across various themes. Choose a theme that resonates with you,
                 receive your uplifting message, and save your favorites to your
-                personal MyBoard. Feeling the need to chat? Our chat buddy is
-                here to listen and engage in friendly conversation. Take a break
-                and participate in our mindful minutes, reflecting and
-                journaling your thoughts on thought-provoking questions.”
+                personal MyBoard.
+              </p>
+              <p className="font-andika text-base lg:text-xl whitespace-normal transition-all">
+                Feeling the need to chat? Our chat buddy, Riley, is here to
+                listen and engage in friendly conversation. Take a break and
+                participate in our mindful minutes, reflecting and journaling
+                your thoughts on thought-provoking questions.”
               </p>
             </div>
           </Reveal>
@@ -66,14 +69,14 @@ export default function Home() {
               loop
               animationData={happyStudents}
               play
-              style={{ minWidth: 500, minHeight: 500 }}
+              style={{ minWidth: 650, minHeight: 650 }}
             />
           </Reveal>
         </div>
       </div>
 
       <div className="snap-start w-screen py-[64px] xl:h-screen flex flex-col xl:flex-row bg-[#F2EFC7] items-center justify-center gap-8 px-10">
-        <div className="flex flex-col self-end mb-10">
+        <div className="flex flex-col xl:self-end xl:mb-10">
           <Reveal delay={0.5}>
             <Image
               src={quote}
@@ -102,8 +105,8 @@ export default function Home() {
               </h1>
               <h1 className="font-andika text-[25px] text-center xl:text-right">
                 Whether you want to share your thoughts, seek advice, or just
-                enjoy some light-hearted chatter, our Chat Buddy offers a
-                supportive and understanding presence.
+                enjoy some light-hearted chatter, our Chat Buddy, Riley, offers
+                a supportive and understanding presence.
               </h1>
             </div>
           </Reveal>
