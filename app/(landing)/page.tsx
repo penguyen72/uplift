@@ -5,11 +5,11 @@ import Lottie from 'react-lottie-player';
 
 import happyStudents from '../../public/happy-students.json';
 
-import Chat from "@/components/chat";
-import NavBar from "@/components/nav-bar";
-import Reveal from "@/components/reveal";
-import Image from "next/image";
-import quote from "/Users/lianenguyen/Documents/Liane's Macbook Air/GitHub/HackGT23/uplift/public/Quote.svg";
+import Chat from '@/components/chat';
+import NavBar from '@/components/nav-bar';
+import Reveal from '@/components/reveal';
+import Image from 'next/image';
+import quote from '../../public/quote.svg';
 
 export default function Home() {
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function Home() {
           <Reveal delay={0.45}>
             <button
               className="bg-[#FFEEE2] hover:bg-[#f9a4d6] text-black font-delius text-[30px] h-[56px] w-[242px] border-black border-2 border-solid rounded-[15px]"
-              onClick={() => router.push("/library")}
+              onClick={() => router.push('/library')}
             >
               Get Started
             </button>
@@ -73,7 +73,7 @@ export default function Home() {
       </div>
 
       <div className="snap-start w-screen py-[64px] xl:h-screen flex flex-col xl:flex-row bg-[#F2EFC7] items-center justify-center gap-8 px-10">
-        <div className="flex flex-col mr-[15px] mt-[200px]">
+        <div className="flex flex-col self-end mb-10">
           <Reveal delay={0.5}>
             <Image
               src={quote}
