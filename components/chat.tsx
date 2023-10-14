@@ -53,7 +53,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-[500px] h-[650px] ml-[100px] mr-[70px] bg-white rounded-[20px] border-black border-[1px] border-solid">
+    <div className="flex flex-col items-center justify-center w-[500px] h-[650px] bg-white rounded-[20px] border-black border-[1px] border-solid">
       <div className="bg-[#D2BBA0] w-full h-[35px] py-[6px] rounded-[20px] rounded-bl rounded-br">
         <h1 className="text-black text-[15px] font-andika text-center align-middle">
           Chat Buddy: A Virtual Friend
