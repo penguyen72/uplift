@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { Button } from '@/components/ui/button';
 import { UserButton } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation';
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <Button variant="link" onClick={() => router.push('/library')}>
           Library
         </Button>
-        <Button variant="link" onClick={() => router.push('/sign-in')}>
+        <Button variant="link" onClick={() => router.push('/my-board')}>
           MyBoard
         </Button>
         <Button variant="link" onClick={() => router.push('/mindful-minutes')}>
