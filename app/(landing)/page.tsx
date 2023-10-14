@@ -3,15 +3,14 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="w-full h-full">
-      <UserButton afterSignOutUrl="/" />
-      <div className="flex flex-col w-screen h-screen items-center justify-center">
-        <h1>Page 1</h1>
+    <div className="snap-mandatory snap-y h-screen w-screen overflow-scroll">
+      <div className="snap-start w-screen h-screen flex items-center justify-center">
+        <h1>Page 5</h1>
       </div>
-      <div className="flex flex-col w-screen h-screen bg-[#FFEEE2] items-center justify-center">
+      <div className="snap-start w-screen h-screen flex bg-[#FFEEE2] items-center justify-center">
         <h1>Page 2</h1>
       </div>
-      <div className="flex flex-col w-screen h-screen bg-[#F2EFC7] items-center justify-center">
+      <div className="snap-start w-screen h-screen flex bg-[#F2EFC7] items-center justify-center">
         <h1>Page 3</h1>
       </div>
     </div>
