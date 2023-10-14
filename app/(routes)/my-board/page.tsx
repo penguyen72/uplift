@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { Quote } from '@/types';
-import axios from 'axios';
-import Image from 'next/image';
+import { Button } from "@/components/ui/button";
+import { Quote } from "@/types";
+import axios from "axios";
+import Image from "next/image";
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function Home() {
 
   const getQuotes = async () => {
     try {
-      const response = await axios.post('/api/get-quotes');
+      const response = await axios.post("/api/get-quotes");
       setNotes(response.data.quotes);
     } catch (error) {
       setError(true);
@@ -31,12 +31,12 @@ function Home() {
   }, []);
 
   return (
-    <div className="flex items-center h-auto md:h-[calc(100vh-56px)] justify-center overflow-y-scroll px-10 pb-10 pt-5">
+    <div className="flex text-andika items-center h-auto md:h-[calc(100vh-56px)] justify-center overflow-y-scroll px-10 pb-10 pt-5">
       <div className="flex bg-[#9F7E69] h-full w-full p-10 justify-center items-start rounded-sm">
         {!loading && notes.length === 0 && (
           <div className="flex flex-col h-full items-center justify-center">
             <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
-            <p className="text-2xl font-delius">
+            <p className="text-2xl font-andika">
               You haven't saved any quotes!
             </p>
           </div>
@@ -44,7 +44,7 @@ function Home() {
         {error && (
           <div className="flex flex-col h-full items-center justify-center">
             <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
-            <p className="text-2xl font-delius">
+            <p className="text-2xl font-andika">
               Uh oh! I couldn't get your quotes. Try again later!
             </p>
           </div>
@@ -58,7 +58,7 @@ function Home() {
                 layoutId={`${index}`}
                 onClick={() => setSelectedIndex(index)}
               >
-                <p className="text-center text-delius text-black">
+                <p className="text-center text-[20px] text-andika text-black">
                   {item.category}
                 </p>
               </motion.div>
