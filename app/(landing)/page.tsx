@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Lottie from 'react-lottie-player';
+import { useRouter } from "next/navigation";
+import Lottie from "react-lottie-player";
 
-import happyStudents from '../../public/happy-students.json';
+import happyStudents from "../../public/happy-students.json";
 
-import Chat from '@/components/chat';
-import NavBar from '@/components/nav-bar';
+import Chat from "@/components/chat";
+import NavBar from "@/components/nav-bar";
 
 export default function Home() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function Home() {
           </h1>
           <button
             className="bg-[#FFEEE2] hover:bg-[#f9a4d6] text-black font-delius text-[30px] h-[56px] w-[242px] border-black border-2 border-solid rounded-[15px]"
-            onClick={() => router.push('/library')}
+            onClick={() => router.push("/library")}
           >
             Get Started
           </button>
