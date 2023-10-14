@@ -2,17 +2,20 @@
 
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowLeftRight, Heart } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ChatCompletionMessage } from 'openai/resources/index.mjs';
-import { Fragment, useState } from 'react';
-import { Skeleton } from './ui/skeleton';
+import { useState } from 'react';
+import { Button } from './ui/button';
 
 interface CardProps {
-  title: string;
+  category: string;
   type: 'quote' | 'tip' | 'joke';
 }
 
-const Card = ({ title, type }: CardProps) => {
+const Card = ({ category, type }: CardProps) => {
+  const [liked, setLiked] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [message, setMessage] = useState<ChatCompletionMessage>();
@@ -25,7 +28,7 @@ const Card = ({ title, type }: CardProps) => {
     try {
       const userMessage: ChatCompletionMessage = {
         role: 'user',
-        content: title,
+        content: category,
       };
 
       const response = await axios.post('/api/quote', {
@@ -36,7 +39,6 @@ const Card = ({ title, type }: CardProps) => {
     } catch (error) {
       console.log(error);
     } finally {
-      router.refresh();
       setLoading(false);
       setDirty(true);
     }
@@ -52,10 +54,29 @@ const Card = ({ title, type }: CardProps) => {
     toggleFlipped();
   };
 
+  const saveQuote = async () => {
+    try {
+      const response = await axios.post('/api/save-quote', {
+        category: category,
+        quote: message?.content,
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLike = () => {
+    if (!liked) {
+      setLiked(true);
+      saveQuote();
+    }
+  };
+
   return (
     <motion.div
-      className="w-[450px] h-[250px] relative hover:cursor-pointer font-andika"
-      onClick={handleClick}
+      className="w-[400px] 2xl:w-[450px] h-[250px] relative hover:cursor-pointer font-andika"
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ duration: 0.5 }}
@@ -71,14 +92,24 @@ const Card = ({ title, type }: CardProps) => {
             transition={{ duration: 0.5 }}
             whileHover={{ backgroundColor: '#9F7E69' }}
           >
-            <motion.p
-              className="text-2xl whitespace-nowrap"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              {title}
-            </motion.p>
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Button
+                className="rounded-full absolute top-2 left-2 hover:bg-[#ffffff1f]"
+                variant="ghost"
+                size="icon"
+                onClick={handleClick}
+              >
+                <ArrowLeftRight />
+              </Button>
+              <motion.p
+                className="text-2xl whitespace-nowrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                {category}
+              </motion.p>
+            </div>
           </motion.div>
         ) : (
           <motion.div
@@ -89,40 +120,63 @@ const Card = ({ title, type }: CardProps) => {
             transition={{ duration: 0.5 }}
             whileHover={{ backgroundColor: '#9F7E69' }}
           >
-            {loading ? (
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-4 w-[250px]" />
-                <Skeleton className="h-4 w-[200px]" />
-              </div>
-            ) : type === 'quote' ? (
-              <div className="flex flex-col gap-2">
-                <motion.p
-                  className="text-xl italic"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                >
-                  {message?.content?.split(' - ')[0]}
-                </motion.p>
-                <motion.p
-                  className="text-base italic text-right"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                >
-                  {`- ${message?.content?.split(' - ')[1]}`}
-                </motion.p>
-              </div>
-            ) : (
-              <motion.p
-                className="text-xl text-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Button
+                className="rounded-full absolute top-2 left-2 hover:bg-[#ffffff1f]"
+                variant="ghost"
+                size="icon"
+                onClick={handleClick}
               >
-                {message?.content}
-              </motion.p>
-            )}
+                <ArrowLeftRight />
+              </Button>
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/tiger.png"
+                    alt="/tiger.png"
+                    width={100}
+                    height={100}
+                  />
+                  <p className="text-lg">Grabbing your quote right now!</p>
+                </div>
+              ) : type === 'quote' ? (
+                <div className="flex flex-col gap-2">
+                  <motion.p
+                    className="text-xl italic"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                  >
+                    {message?.content?.split(' - ')[0]}
+                  </motion.p>
+                  <motion.p
+                    className="text-base italic text-right"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                  >
+                    {`- ${message?.content?.split(' - ')[1]}`}
+                  </motion.p>
+                </div>
+              ) : (
+                <motion.p
+                  className="text-xl text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  {message?.content}
+                </motion.p>
+              )}
+              <Button
+                className="rounded-full absolute bottom-2 right-2 hover:bg-[#ffffff1f]"
+                variant="ghost"
+                size="icon"
+                onClick={handleLike}
+              >
+                <Heart className={liked ? 'text-red-700' : ''} />
+              </Button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,17 +1,24 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { UserButton, useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const NavBar = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { userId } = useAuth();
 
   if (userId) {
     return (
-      <div className="flex items-center justify-end py-2 px-3 h-[56px]">
+      <div
+        className={cn(
+          'flex items-center justify-end py-2 px-4 h-[56px]',
+          pathname.includes('mindful-minutes') && 'bg-[#FFEEE2]'
+        )}
+      >
         <Button variant="link" onClick={() => router.push('/')}>
           <p className="font-delius text-lg">Home</p>
         </Button>
@@ -29,7 +36,12 @@ const NavBar = () => {
     );
   } else {
     return (
-      <div className="flex items-center justify-end h-[56px] py-2 px-3">
+      <div
+        className={cn(
+          'flex items-center justify-end py-2 px-4 h-[56px]',
+          pathname.includes('mindful-minutes') && 'bg-[#FFEEE2]'
+        )}
+      >
         <Button variant="link" onClick={() => router.push('/')}>
           <p className="font-delius text-lg">Home</p>
         </Button>

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import Lottie from "react-lottie-player";
+import { useRouter } from 'next/navigation';
+import Lottie from 'react-lottie-player';
 
-import happyStudents from "../../public/happy-students.json";
+import happyStudents from '../../public/happy-students.json';
 
 import Chat from '@/components/chat';
 import NavBar from '@/components/nav-bar';
@@ -41,7 +41,7 @@ export default function Home() {
       </div>
 
       <div className="snap-start w-screen h-full xl:h-screen py-[80px] flex flex-col lg:flex-row bg-[#FFEEE2] items-center justify-center transition-all">
-        <div className="flex flex-row gap-4 items-center">
+        <div className="flex flex-col xl:flex-row gap-4 items-center">
           <Reveal delay={0.25}>
             <div className="flex flex-col items-center lg:items-start justify-center ml-[30px] mr-[70px] max-w-[900px] p-[24px] gap-8 transition-all">
               <h1 className="font-jua text-6xl xl:text-8xl drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-[#DE9BC3] whitespace-nowrap transition-all">

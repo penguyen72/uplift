@@ -1,87 +1,99 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Note from "@/components/note";
+import { AnimatePresence, motion } from 'framer-motion';
+import { X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-const notes = [
-  { id: "1", title: "Quote #1", subtitle: "Text of Quote 1" },
-  { id: "2", title: "Quote #2", subtitle: "Text of Quote 2" },
-  { id: "3", title: "Quote #3", subtitle: "Text of Quote 3" },
-];
+import { Button } from '@/components/ui/button';
+import { Quote } from '@/types';
+import axios from 'axios';
+import Image from 'next/image';
 
 function Home() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [notes, setNotes] = useState<Quote[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const getQuotes = async () => {
+    try {
+      const response = await axios.post('/api/get-quotes');
+      setNotes(response.data.quotes);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getQuotes();
+  }, []);
 
   return (
-    <motion.div className="flex items-center h-auto md:h-[calc(100vh-56px)] justify-center overflow-y-scroll px-10 pb-10 pt-5">
-      <div className="flex bg-[#9F7E69] h-full p-10 justify-center items-start">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-8">
-          {notes.map((item) => (
-            <motion.div
-              className={`card w-[160px] h-[160px] bg-[#D2BBA0] rounded-md cursor-pointer transform transition-transform duration-500 hover:scale-1.1 ${
-                selectedId === item.id ? "card-selected" : ""
-              }`}
-              layoutId={`card-container-${item.id}`}
-              onClick={() => setSelectedId(item.id)}
-              key={item.id}
-              initial={{ scale: 1 }}
-              animate={{ scale: selectedId === item.id ? 1.1 : 1 }} // Increase scale on selected card
-              transition={{ duration: 0.3 }}
-            >
-              <div className="card-content">
-                <motion.h2 className="text-[18px] text-center text-delius mt-[25px] p-5 text-black">
-                  {item.title}
-                </motion.h2>
-                <motion.h5 className="text-[15px] text-center mb-1 text-black">
-                  {item.subtitle}
-                </motion.h5>
-              </div>
-            </motion.div>
-          ))}
-
-          <AnimatePresence>
-            {selectedId && (
+    <div className="flex items-center h-auto md:h-[calc(100vh-56px)] justify-center overflow-y-scroll px-10 pb-10 pt-5">
+      <div className="flex bg-[#9F7E69] h-full w-full p-10 justify-center items-start rounded-sm">
+        {!loading && notes.length === 0 && (
+          <div className="flex flex-col h-full items-center justify-center">
+            <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
+            <p className="text-2xl font-delius">
+              You haven't saved any quotes!
+            </p>
+          </div>
+        )}
+        {error && (
+          <div className="flex flex-col h-full items-center justify-center">
+            <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
+            <p className="text-2xl font-delius">
+              Uh oh! I couldn't get your quotes. Try again later!
+            </p>
+          </div>
+        )}
+        {notes.length !== 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-8">
+            {notes.map((item, index) => (
               <motion.div
-                className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                className="flex items-center justify-center w-[160px] h-[160px] bg-[#D2BBA0] rounded-md cursor-pointer"
+                key={item.id}
+                layoutId={`${index}`}
+                onClick={() => setSelectedIndex(index)}
               >
-                {notes.map(
-                  (item) =>
-                    item.id === selectedId && (
-                      <motion.div
-                        className="bg-[#D2BBA0] rounded-lg p-1 shadow-md w-[450px] h-[450px]"
-                        layoutId={`card-container-${item.id}`}
-                        key={item.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                      >
-                        <motion.div className="relative">
-                          <motion.button
-                            className="absolute top-0 right-[15px] text-center text-black"
-                            onClick={() => setSelectedId(null)}
-                          >
-                            <span className="text-2xl">&times;</span>
-                          </motion.button>
-                          <motion.h2 className="text-[30px] text-center mt-[25px] mb-2 text-black">
-                            {item.title}
-                          </motion.h2>
-                          <motion.h5 className="text-[20px] text-center mt-[30px] mb-1 text-gray-700">
-                            {item.subtitle}
-                          </motion.h5>
-                        </motion.div>
-                      </motion.div>
-                    )
-                )}
+                <p className="text-center text-delius text-black">
+                  {item.category}
+                </p>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+            ))}
+
+            <AnimatePresence mode="wait">
+              {selectedIndex !== null && (
+                <div className="flex items-center justify-center fixed h-screen w-screen inset-0 bg-black bg-opacity-50">
+                  <motion.div
+                    key={notes[selectedIndex].id}
+                    className="bg-[#D2BBA0] rounded-lg w-[450px] relative px-8 pb-10 pt-4"
+                    layoutId={`${selectedIndex}`}
+                  >
+                    <Button
+                      className="rounded-full hover:bg-[#d9c3aa] top-4 right-4 absolute"
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => setSelectedIndex(null)}
+                    >
+                      <X />
+                    </Button>
+                    <motion.h2 className="text-[30px] text-center mt-[25px] mb-2 text-black">
+                      {notes[selectedIndex].category}
+                    </motion.h2>
+                    <motion.h5 className="text-[20px] text-center mt-[30px] mb-1 text-gray-700">
+                      {notes[selectedIndex].quote}
+                    </motion.h5>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
