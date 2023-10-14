@@ -1,7 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { Fragment, useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface NoteProps {
   title: string;
