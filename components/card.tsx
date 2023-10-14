@@ -1,22 +1,61 @@
 'use client';
 
+import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChatCompletionMessage } from 'openai/resources/index.mjs';
+import { Fragment, useState } from 'react';
+import { Skeleton } from './ui/skeleton';
 
 interface CardProps {
   title: string;
+  type: 'quote' | 'tip' | 'joke';
 }
 
-const Card = ({ title }: CardProps) => {
+const Card = ({ title, type }: CardProps) => {
+  const [dirty, setDirty] = useState(false);
   const [flipped, setFlipped] = useState(false);
+  const [message, setMessage] = useState<ChatCompletionMessage>();
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const getMessage = async () => {
+    setLoading(true);
+    try {
+      const userMessage: ChatCompletionMessage = {
+        role: 'user',
+        content: title,
+      };
+
+      const response = await axios.post('/api/quote', {
+        message: userMessage,
+      });
+
+      setMessage(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      router.refresh();
+      setLoading(false);
+      setDirty(true);
+    }
+  };
   const toggleFlipped = () => {
     setFlipped((prevValue) => !prevValue);
   };
 
+  const handleClick = () => {
+    if (!dirty) {
+      getMessage();
+    }
+    toggleFlipped();
+  };
+
   return (
     <motion.div
-      className="w-[450px] h-[250px] relative hover:cursor-pointer"
-      onClick={toggleFlipped}
+      className="w-[450px] h-[250px] relative hover:cursor-pointer font-andika"
+      onClick={handleClick}
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ duration: 0.5 }}
@@ -50,14 +89,40 @@ const Card = ({ title }: CardProps) => {
             transition={{ duration: 0.5 }}
             whileHover={{ backgroundColor: '#9F7E69' }}
           >
-            <motion.p
-              className="text-2xl whitespace-nowrap"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              "You are hot" - Peyton Nguyen
-            </motion.p>
+            {loading ? (
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-4 w-[250px]" />
+                <Skeleton className="h-4 w-[200px]" />
+              </div>
+            ) : type === 'quote' ? (
+              <div className="flex flex-col gap-2">
+                <motion.p
+                  className="text-xl italic"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  {message?.content?.split(' - ')[0]}
+                </motion.p>
+                <motion.p
+                  className="text-base italic text-right"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  {`- ${message?.content?.split(' - ')[1]}`}
+                </motion.p>
+              </div>
+            ) : (
+              <motion.p
+                className="text-xl text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                {message?.content}
+              </motion.p>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
