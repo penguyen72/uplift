@@ -57,10 +57,10 @@ export default function Home() {
                 personal MyBoard.
               </p>
               <p className="font-andika text-base lg:text-xl whitespace-normal transition-all">
-                Feeling the need to chat? Our chat buddy is here to listen and
-                engage in friendly conversation. Take a break and participate in
-                our mindful minutes, reflecting and journaling your thoughts on
-                thought-provoking questions.”
+                Feeling the need to chat? Our chat buddy, Riley, is here to
+                listen and engage in friendly conversation. Take a break and
+                participate in our mindful minutes, reflecting and journaling
+                your thoughts on thought-provoking questions.”
               </p>
             </div>
           </Reveal>
@@ -76,7 +76,7 @@ export default function Home() {
       </div>
 
       <div className="snap-start w-screen py-[64px] xl:h-screen flex flex-col xl:flex-row bg-[#F2EFC7] items-center justify-center gap-8 px-10">
-        <div className="flex flex-col self-end mb-10">
+        <div className="flex flex-col xl:self-end xl:mb-10">
           <Reveal delay={0.5}>
             <Image
               src={quote}
@@ -105,8 +105,8 @@ export default function Home() {
               </h1>
               <h1 className="font-andika text-[25px] text-center xl:text-right">
                 Whether you want to share your thoughts, seek advice, or just
-                enjoy some light-hearted chatter, our Chat Buddy offers a
-                supportive and understanding presence.
+                enjoy some light-hearted chatter, our Chat Buddy, Riley, offers
+                a supportive and understanding presence.
               </h1>
             </div>
           </Reveal>
