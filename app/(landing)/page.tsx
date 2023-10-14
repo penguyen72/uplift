@@ -5,9 +5,11 @@ import Lottie from "react-lottie-player";
 
 import happyStudents from "../../public/happy-students.json";
 
-import Chat from '@/components/chat';
-import NavBar from '@/components/nav-bar';
-import Reveal from '@/components/reveal';
+import Chat from "@/components/chat";
+import NavBar from "@/components/nav-bar";
+import Reveal from "@/components/reveal";
+import Image from "next/image";
+import quote from "/Users/lianenguyen/Documents/Liane's Macbook Air/GitHub/HackGT23/uplift/public/Quote.svg";
 
 export default function Home() {
   const router = useRouter();
@@ -32,7 +34,7 @@ export default function Home() {
           <Reveal delay={0.45}>
             <button
               className="bg-[#FFEEE2] hover:bg-[#f9a4d6] text-black font-delius text-[30px] h-[56px] w-[242px] border-black border-2 border-solid rounded-[15px]"
-              onClick={() => router.push('/library')}
+              onClick={() => router.push("/library")}
             >
               Get Started
             </button>
@@ -71,14 +73,29 @@ export default function Home() {
       </div>
 
       <div className="snap-start w-screen py-[64px] xl:h-screen flex flex-col xl:flex-row bg-[#F2EFC7] items-center justify-center gap-8 px-10">
-        <div className="flex flex-col items-center justify-center w-[200px]">
-          cute animal will go here
+        <div className="flex flex-col mr-[15px] mt-[200px]">
+          <Reveal delay={0.5}>
+            <Image
+              src={quote}
+              alt="Picture quote for tiger"
+              width={300}
+              height={300}
+            />
+          </Reveal>
+          <Reveal delay={0.7}>
+            <Image
+              src="/tiger.png"
+              width={350}
+              height={350}
+              alt="Picture of tiger"
+            />
+          </Reveal>
         </div>
         <div className="flex flex-col-reverse xl:flex-row items-center gap-8">
-          <Reveal delay={0.7}>
+          <Reveal delay={0.4}>
             <Chat />
           </Reveal>
-          <Reveal delay={0.25}>
+          <Reveal delay={0.6}>
             <div className="flex flex-col items-center xl:items-end w-[500px]">
               <h1 className="font-jua text-[80px] drop-shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-[#9F7E69] ">
                 Chat Buddy
