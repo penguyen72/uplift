@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import axios from 'axios';
-import { ChatCompletionMessage } from 'openai/resources/index.mjs';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import axios from "axios";
+import { ChatCompletionMessage } from "openai/resources/index.mjs";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   prompt: z.string().min(1, {
-    message: 'Prompt is required',
+    message: "Prompt is required",
   }),
 });
 
@@ -24,7 +24,7 @@ const Chat = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      prompt: '',
+      prompt: "",
     },
   });
 
@@ -33,12 +33,12 @@ const Chat = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const userMessage: ChatCompletionMessage = {
-        role: 'user',
+        role: "user",
         content: values.prompt,
       };
       const newMessages = [...conversation, userMessage];
 
-      const response = await axios.post('/api/chat-buddy', {
+      const response = await axios.post("/api/chat-buddy", {
         messages: newMessages,
       });
 
@@ -61,7 +61,7 @@ const Chat = () => {
       </div>
       <div className="flex-grow overflow-y-scroll w-full">
         <div className="flex flex-col space-y-2 p-4">
-          <div className="flex items-center rounded-xl rounded-tr py-[7px] px-3 font-delius max-w-[80%] self-start bg-[#E2E2E2]">
+          <div className="flex items-center rounded-xl rounded-tl py-[7px] px-3 font-delius max-w-[80%] self-start bg-[#E2E2E2]">
             <p className="text-sm">Tell me about your day!</p>
           </div>
           {conversation.map((message) => {
@@ -69,10 +69,10 @@ const Chat = () => {
               <div
                 key={message.content}
                 className={cn(
-                  'flex items-center rounded-xl rounded-tr py-[7px] px-3 font-delius max-w-[80%]',
-                  message.role === 'user'
-                    ? 'self-end bg-[#DE9BC3]'
-                    : 'self-start bg-[#E2E2E2]'
+                  "flex items-center rounded-xl rounded-tr py-[7px] px-3 font-delius max-w-[80%]",
+                  message.role === "user"
+                    ? "self-end bg-[#DE9BC3]"
+                    : "self-start bg-[#E2E2E2]"
                 )}
               >
                 <p className="text-sm">{message.content}</p>
