@@ -11,7 +11,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <div className="flex items-center justify-end py-2 px-3 h-[56px]">
-        <Button variant="link" onClick={() => router.push('/home')}>
+        <Button variant="link" onClick={() => router.push('/')}>
           Home
         </Button>
         <Button variant="link" onClick={() => router.push('/library')}>
