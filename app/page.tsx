@@ -1,8 +1,10 @@
+import { UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className="w-full h-full">
+      <UserButton afterSignOutUrl="/" />
       <div className="flex flex-col w-screen h-screen items-center justify-center">
         <h1>Page 1</h1>
       </div>
