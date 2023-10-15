@@ -15,7 +15,7 @@ const Reveal = ({ children, delay }: RevealProps) => {
     if (isInView) {
       mainControls.start('visible');
     }
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   const variants = {
     initial: {

@@ -57,8 +57,6 @@ const Chat = () => {
           content: "I couldn't understand you. Can you say that again?",
         },
       ]);
-    } finally {
-      router.refresh();
     }
   };
 
@@ -79,10 +77,10 @@ const Chat = () => {
               <div
                 key={message.content}
                 className={cn(
-                  'flex items-center rounded-xl rounded-tr py-[7px] px-3 font-delius max-w-[80%]',
+                  'flex items-center rounded-xl py-[7px] px-3 font-delius max-w-[80%]',
                   message.role === 'user'
-                    ? 'self-end bg-[#DE9BC3]'
-                    : 'self-start bg-[#E2E2E2]'
+                    ? 'self-end bg-[#DE9BC3] rounded-tr'
+                    : 'self-start bg-[#E2E2E2] rounded-tl'
                 )}
               >
                 <p className="text-sm">{message.content}</p>
@@ -90,7 +88,7 @@ const Chat = () => {
             );
           })}
           {isLoading && (
-            <div className="flex items-center rounded-xl rounded-tr py-[7px] px-3 font-delius max-w-[80%] self-start bg-[#E2E2E2]">
+            <div className="flex items-center rounded-xl rounded-tl py-[7px] px-3 font-delius max-w-[80%] self-start bg-[#E2E2E2]">
               <p className="text-sm">Riley is typing...</p>
             </div>
           )}
