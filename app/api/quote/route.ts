@@ -19,10 +19,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { message } = body;
 
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 });
-    }
-
     if (!openai.apiKey) {
       return new NextResponse('OpenAI API Key not configured', { status: 500 });
     }
