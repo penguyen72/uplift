@@ -32,7 +32,12 @@ function Home() {
 
   return (
     <div className="flex text-andika items-center h-auto md:h-[calc(100vh-56px)] justify-center overflow-y-scroll px-10 pb-10 pt-5">
-      <div className="flex bg-[#9F7E69] h-full w-full p-10 justify-center items-start rounded-sm">
+      <motion.div
+        className="flex bg-[#9F7E69] h-full w-full p-10 justify-center items-start rounded-sm"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
         {!loading && notes.length === 0 && (
           <div className="flex flex-col h-full items-center justify-center">
             <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
@@ -58,6 +63,7 @@ function Home() {
                 layoutId={`${index}`}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
+                transition={{ delay: 0.4 }}
                 onClick={() => setSelectedIndex(index)}
               >
                 <p className="text-center text-2xl font-andika text-black ">
@@ -94,7 +100,7 @@ function Home() {
             </AnimatePresence>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
