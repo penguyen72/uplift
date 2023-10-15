@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Lottie from 'react-lottie-player';
+import { useRouter } from "next/navigation";
+import Lottie from "react-lottie-player";
 
-import happyStudents from '../../public/happy-students.json';
+import happyStudents from "../../public/happy-students.json";
 
-import Chat from '@/components/chat';
-import NavBar from '@/components/nav-bar';
-import Reveal from '@/components/reveal';
-import Image from 'next/image';
-import quote from '../../public/quote.svg';
+import Chat from "@/components/chat";
+import NavBar from "@/components/nav-bar";
+import Reveal from "@/components/reveal";
+import Image from "next/image";
+import quote from "../../public/quote.svg";
 
 export default function Home() {
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function Home() {
           <Reveal delay={0.45}>
             <button
               className="bg-[#FFEEE2] hover:bg-[#f9a4d6] text-black font-delius text-[30px] h-[56px] w-[242px] border-black border-2 border-solid rounded-[15px]"
-              onClick={() => router.push('/library')}
+              onClick={() => router.push("/library")}
             >
               Get Started
             </button>
@@ -59,8 +59,8 @@ export default function Home() {
               <p className="font-andika text-base lg:text-xl whitespace-normal transition-all">
                 Feeling the need to chat? Our chat buddy, Riley, is here to
                 listen and engage in friendly conversation. Take a break and
-                participate in our mindful minutes, reflecting and journaling
-                your thoughts on thought-provoking questions.”
+                participate in our mindful minutes, where you journal your
+                thoughts on thought-provoking questions.
               </p>
             </div>
           </Reveal>
