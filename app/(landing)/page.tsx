@@ -42,7 +42,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="snap-start w-screen h-full xl:h-screen py-[80px] flex flex-col lg:flex-row bg-[#FFEEE2] items-center justify-center transition-all">
+      <div className="snap-start w-screen h-auto xl:h-screen py-[80px] flex flex-col lg:flex-row bg-[#FFEEE2] items-center justify-center transition-all">
         <div className="flex flex-col xl:flex-row gap-4 items-center">
           <Reveal delay={0.25}>
             <div className="flex flex-col items-center lg:items-start justify-center ml-[30px] mr-[70px] max-w-[900px] p-[24px] gap-8 transition-all">
@@ -50,7 +50,7 @@ export default function Home() {
                 ABOUT US
               </h1>
               <p className="font-andika text-base lg:text-xl whitespace-normal transition-all">
-                'Take What You Need' offers a diverse collection of
+                &apos;Take What You Need&apos; offers a diverse collection of
                 inspirational quotes, heartwarming jokes, and practical tips
                 across various themes. Choose a theme that resonates with you,
                 receive your uplifting message, and save your favorites to your

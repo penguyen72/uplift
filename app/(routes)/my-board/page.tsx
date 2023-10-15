@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from 'framer-motion';
+import { X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Quote } from "@/types";
-import axios from "axios";
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { Quote } from '@/types';
+import axios from 'axios';
+import Image from 'next/image';
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function Home() {
 
   const getQuotes = async () => {
     try {
-      const response = await axios.post("/api/get-quotes");
+      const response = await axios.post('/api/get-quotes');
       setNotes(response.data.quotes);
     } catch (error) {
       setError(true);
@@ -37,7 +37,7 @@ function Home() {
           <div className="flex flex-col h-full items-center justify-center">
             <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
             <p className="text-2xl font-andika">
-              You haven't saved any quotes!
+              You haven&apos;t saved any quotes!
             </p>
           </div>
         )}
@@ -45,7 +45,7 @@ function Home() {
           <div className="flex flex-col h-full items-center justify-center">
             <Image src="/tiger.png" alt="/tiger.png" width={400} height={400} />
             <p className="text-2xl font-andika">
-              Uh oh! I couldn't get your quotes. Try again later!
+              Uh oh! I couldn&apos;t get your quotes. Try again later!
             </p>
           </div>
         )}
@@ -56,9 +56,11 @@ function Home() {
                 className="flex items-center justify-center w-[160px] h-[160px] bg-[#D2BBA0] rounded-md cursor-pointer"
                 key={item.id}
                 layoutId={`${index}`}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
                 onClick={() => setSelectedIndex(index)}
               >
-                <p className="text-center text-[20px] text-andika text-black">
+                <p className="text-center text-2xl font-andika text-black ">
                   {item.category}
                 </p>
               </motion.div>
@@ -80,10 +82,10 @@ function Home() {
                     >
                       <X />
                     </Button>
-                    <motion.h2 className="text-[30px] text-center mt-[25px] mb-2 text-black">
+                    <motion.h2 className="text-[30px] text-center mt-[25px] mb-2 text-black font-delius ">
                       {notes[selectedIndex].category}
                     </motion.h2>
-                    <motion.h5 className="text-[20px] text-center mt-[30px] mb-1 text-gray-700">
+                    <motion.h5 className="text-[20px] text-center mt-[30px] mb-1 text-gray-700 font-delius italic">
                       {notes[selectedIndex].quote}
                     </motion.h5>
                   </motion.div>

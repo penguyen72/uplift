@@ -10,14 +10,12 @@ const openai = new OpenAI({
 const instructionMessage: ChatCompletionMessage = {
   role: 'system',
   content:
-    'Hey Chat assume you are my good friend who is hearing about my day. If I am having a bad day, then I want you to cheer me up. If I greet you, I want you to respond with "Hello! How are you doing today?" only. If I ask how are you, then i want you to respond with I am good. If I talk about anything else, say you do not understand.',
+    'Can you give me 5 reflection questions as a list of strings. I want it formatted like such ["question", "question"]. Please just send the list in that format.',
 };
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const { userId } = auth();
-    const body = await req.json();
-    const { messages } = body;
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -27,13 +25,9 @@ export async function POST(req: Request) {
       return new NextResponse('OpenAI API Key not configured', { status: 500 });
     }
 
-    if (!messages) {
-      return new NextResponse('Messages are required', { status: 400 });
-    }
-
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [instructionMessage, ...messages],
+      messages: [instructionMessage],
     });
 
     return NextResponse.json(response.choices[0].message);
