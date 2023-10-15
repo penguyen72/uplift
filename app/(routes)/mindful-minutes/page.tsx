@@ -22,7 +22,7 @@ export default function Page() {
 
   const containerVariants = {
     visible: {
-      scale: [1, 2, 2, 1, 5, 5, 5, 1, 2, 2, 0],
+      scale: [1, 2, 2, 1, 5, 8, 5, 1, 2, 2, 0],
       rotate: [0, 0, 270, 270, 0, 0, 0, 270, 270, 0, 0],
       borderRadius: [
         '20%',
