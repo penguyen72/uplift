@@ -1,18 +1,16 @@
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { ChatCompletionMessage } from 'openai/resources/index.mjs';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-
-import { Loading } from 'react-loading-dot';
+import { cn } from '@/lib/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const formSchema = z.object({
   prompt: z.string().min(1, {
@@ -50,6 +48,18 @@ const Chat = () => {
 
       form.reset();
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          setConversation((current) => [
+            ...current,
+            {
+              role: 'system',
+              content: 'Please sign in to use this feature.',
+            },
+          ]);
+          return;
+        }
+      }
       setConversation((current) => [
         ...current,
         {
